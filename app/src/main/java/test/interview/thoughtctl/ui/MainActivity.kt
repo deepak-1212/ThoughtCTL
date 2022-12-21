@@ -2,6 +2,7 @@ package test.interview.thoughtctl.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import test.interview.thoughtctl.databinding.ActivityMainBinding
 
@@ -25,8 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         imgurAdapter = ImgurGalleryAdapter()
-        activityMainBinding!!.imgurGalleryList.adapter = imgurAdapter
 
+        activityMainBinding!!.changeLayout.setOnCheckedChangeListener { _, switchStatus ->
+            changeLayout(switchStatus)
+        }
     }
 
     override fun onDestroy() {
@@ -40,7 +43,20 @@ class MainActivity : AppCompatActivity() {
     private fun setView() {
        activityMainBinding?.imgurGalleryList!!.layoutManager = LinearLayoutManager(this)
 
-
     }
+
+    /**
+     * Called when switch's status is changed and layout is reassigned
+    * */
+    private fun changeLayout(switchStatus: Boolean) {
+        activityMainBinding?.imgurGalleryList!!.layoutManager = if (switchStatus) {
+            GridLayoutManager(this, 3)
+        } else {
+            LinearLayoutManager(this)
+        }
+        activityMainBinding!!.imgurGalleryList.adapter = imgurAdapter
+    }
+
+
 
 }

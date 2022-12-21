@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Thoughtctl</string>
+    <string name="grid_layout">Grid View</string>
+    <string name="list_layout">List View</string>
+
 </resources>

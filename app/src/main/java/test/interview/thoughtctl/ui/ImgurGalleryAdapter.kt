@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import test.interview.thoughtctl.databinding.ActivityMainBinding
+import test.interview.thoughtctl.constants.GRID_TYPE
+import test.interview.thoughtctl.constants.LIST_TYPE
 import test.interview.thoughtctl.databinding.ItemSingleGridBinding
 import test.interview.thoughtctl.databinding.ItemSingleLinearBinding
 
 class ImgurGalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val itemList = ArrayList<Any>()
+    private var viewType = 0
 
     class ImgurViewHolderGrid(private val itemSingleGridBinding: ItemSingleGridBinding) :
         RecyclerView.ViewHolder(itemSingleGridBinding.root) {
@@ -31,20 +33,46 @@ class ImgurGalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ImgurViewHolderGrid(
-            ItemSingleGridBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+
+        return when (viewType) {
+            LIST_TYPE -> {
+                ImgurViewHolderLinear(
+                    ItemSingleLinearBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+            else -> {
+                ImgurViewHolderGrid(
+                    ItemSingleGridBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ImgurViewHolderGrid).bindView()
+        when (getItemViewType(holder.adapterPosition)) {
+            LIST_TYPE -> {
+                (holder as ImgurViewHolderLinear).bindView()
+            }
+            GRID_TYPE -> {
+                (holder as ImgurViewHolderGrid).bindView()
+            }
+        }
+
     }
 
     override fun getItemCount() = itemList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return viewType
+    }
 
     private fun setList(list: ArrayList<Any>) {
         CoroutineScope(Main).launch {
@@ -53,6 +81,10 @@ class ImgurGalleryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             itemList.addAll(list)
             notifyItemRangeInserted(0, itemList.size)
         }
+    }
+
+    private fun setViewType(type: Int) {
+        viewType = type
     }
 
 }

@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/white_box"
+    android:padding="@dimen/screen_padding">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/itemPhoto"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:layout_margin="@dimen/view_margin"
+        android:padding="3dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/curvy_end" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/itemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:padding="@dimen/text_padding"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/itemDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemPhoto"
+        app:layout_constraintTop_toTopOf="@id/itemPhoto" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/itemDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:padding="@dimen/text_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/itemPhoto"
+        app:layout_constraintEnd_toEndOf="@id/itemTitle"
+        app:layout_constraintStart_toStartOf="@id/itemTitle"
+        app:layout_constraintTop_toBottomOf="@id/itemTitle"
+        app:layout_constraintVertical_bias="0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
