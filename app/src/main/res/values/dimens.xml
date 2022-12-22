@@ -2,5 +2,7 @@
 <resources>
     <dimen name="screen_padding">10dp</dimen>
     <dimen name="text_padding">5dp</dimen>
+    <dimen name="in_between_views_padding">2dp</dimen>
     <dimen name="view_margin">10dp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
 </resources>
